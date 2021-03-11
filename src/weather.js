@@ -16,7 +16,25 @@ async function fetch_data() {
   const f_data = await res.json();
   console.log(f_data.main);
   const main_temp_data = f_data.main;
-  
+  display_celcius(kelvin_to_celius(f_data.main.temp));
+  const p = document.createElement('p');
+  p.innerHTML = `${kelvin_to_celius(f_data.main.temp)} °С
+    </br>
+    ${celcius_to_fahrenheit(f_data.main.temp)} °F
+    `;
+  div_display.appendChild(p);
+}
+
+
+const kelvin_to_celius = (kelvin) => {
+  const cels =  kelvin - 273.15
+  return Math.round((cels + Number.EPSILON) * 100) / 100
+}
+
+const celcius_to_fahrenheit = (kelvin) => {
+  const cels = kelvin_to_celius(kelvin);
+  const fahrenheit = (cels * (9/5)) + 32
+  return fahrenheit 
 }
 
 
