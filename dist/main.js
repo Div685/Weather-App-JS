@@ -80,6 +80,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/domElement.js":
+/*!***************************!*\
+  !*** ./src/domElement.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"display_celcius\": () => (/* binding */ display_celcius)\n/* harmony export */ });\nconst div_display = document.querySelector('.display-data');\n\nconst display_celcius = (temp) => {\n  const p_celcius = document.querySelector('.celcius');\n  p_celcius.innerHTML =  ` ${temp} °С`;\n  return p_celcius;\n}\n\n\n\n//# sourceURL=webpack://weather-app/./src/domElement.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -96,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var boot
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api */ \"./src/api.js\");\n\nconst weatherInit = () => {\n  const api_url = `http://api.openweathermap.org/data/2.5/weather?appid=${_api__WEBPACK_IMPORTED_MODULE_0__.default}`\n  console.log('hello:', api_url);\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (weatherInit);\n\n//# sourceURL=webpack://weather-app/./src/weather.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api */ \"./src/api.js\");\n/* harmony import */ var _domElement__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./domElement */ \"./src/domElement.js\");\n\n\n\nconst input_form = document.querySelector('#search-city');\nconst form = document.querySelector('form');\nconst btn_form = document.querySelector('#btn-search'); \n\n\n\n\nasync function fetch_data() {\n  const city = input_form.value;\n  const div_display = document.querySelector('.display-data');\n  const res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${_api__WEBPACK_IMPORTED_MODULE_0__.default}`, {\n  });\n  const f_data = await res.json();\n  console.log(f_data.main);\n  const main_temp_data = f_data.main;\n  \n}\n\n\nconst weatherInit = () => {\n  btn_form.addEventListener('click', (e) => {\n    e.preventDefault();\n    fetch_data();\n  } \n  );\n}\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (weatherInit);\n\n//# sourceURL=webpack://weather-app/./src/weather.js?");
 
 /***/ })
 
