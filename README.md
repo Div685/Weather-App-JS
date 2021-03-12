@@ -27,7 +27,6 @@ To get a local copy up and running follow these simple steps.
 - [ ]  Navigate to the directory where you will like to install the repo by running `cd FOLDER-NAME` 
 - [ ] Clone this repository
  > `git clone https://github.com/Div685/Weather-App-JS.git`
-- [ ] To set webpack and dependencies run the command
 - [ ] create `api.js` file inside the `src` folder.
 - [ ] After define a variable called API and export it.
     `const API = 'your API Key'`
