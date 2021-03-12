@@ -4,7 +4,7 @@ import variableData from './domElement';
 const domData = variableData();
 const {
   danger, form, inputForm, btnForm, pCelcius, pPressure,
-  cityName, pHumidity, imgIcon, weatherDesc, fahrTemp, celsTemp,
+  cityName, pHumidity, imgIcon, weatherDesc, fahrTemp, celsTemp, bodyData,
 } = domData;
 
 
@@ -22,7 +22,6 @@ const celciusToFahrenheit = (kelvin) => {
 const weatherBackgroundIcon = (bg) => `http://openweathermap.org/img/wn/${bg}@4x.png`;
 
 async function fetchData() {
-  const bodyData = document.querySelector('#body');
   const city = inputForm.value;
   const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
     mode: 'cors',

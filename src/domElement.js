@@ -17,6 +17,7 @@ const variableData = () => {
   const fahrTemp = document.getElementById('fahr-temp');
   const celsTemp = document.getElementById('cels-temp');
   const dangerDiv = document.getElementById('danger-div');
+  const bodyData = document.querySelector('#body');
 
 
   descData.appendChild(imgIcon);
@@ -27,6 +28,7 @@ const variableData = () => {
     danger,
     alert,
     form,
+    bodyData,
     inputForm,
     btnForm,
     pCelcius,
