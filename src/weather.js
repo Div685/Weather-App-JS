@@ -19,44 +19,48 @@ const celciusToFahrenheit = (kelvin) => {
   return fahrenheit;
 };
 
+const weatherBackgroundIcon = (bg) => `http://openweathermap.org/img/wn/${bg}@4x.png`;
 
 async function fetchData() {
-  try {
-    const city = inputForm.value;
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
-      mode: 'cors',
+  const bodyData = document.querySelector('#body');
+  const city = inputForm.value;
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
+    mode: 'cors',
+  });
+
+  const weatherData = await res.json();
+
+  const mainTempData = weatherData.main;
+  const iconBg = weatherData.weather[0].icon;
+
+  if (weatherData.cod === 200) {
+    weatherDesc.innerHTML = `${weatherData.weather[0].main} - ${weatherData.weather[0].description}`;
+    imgIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+    const newData = kelvinToCelius(mainTempData.temp);
+    pCelcius.innerHTML = `${newData} ℃`;
+    pHumidity.innerHTML = `Humidity: ${mainTempData.humidity}%`;
+    pPressure.innerHTML = `Pressure: ${mainTempData.pressure}`;
+    cityName.innerHTML = `${weatherData.name}`;
+
+    bodyData.style.background = `url('${weatherBackgroundIcon(iconBg)}') repeat-x #333`;
+
+    form.reset();
+
+    fahrTemp.addEventListener('click', () => {
+      const fahrData = celciusToFahrenheit(mainTempData.temp);
+      pCelcius.innerHTML = `${fahrData} F`;
     });
 
-    const weatherData = await res.json();
-
-    const mainTempData = weatherData.main;
-
-    if (weatherData.cod === 200) {
-      weatherDesc.innerHTML = `${weatherData.weather[0].main} - ${weatherData.weather[0].description}`;
-      imgIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
-      const newData = kelvinToCelius(mainTempData.temp);
+    celsTemp.addEventListener('click', () => {
       pCelcius.innerHTML = `${newData} ℃`;
-      pHumidity.innerHTML = `Humidity: ${mainTempData.humidity}%`;
-      pPressure.innerHTML = `Pressure: ${mainTempData.pressure}`;
-      cityName.innerHTML = `${weatherData.name}`;
-
-      form.reset();
-
-      fahrTemp.addEventListener('click', () => {
-        const fahrData = celciusToFahrenheit(mainTempData.temp);
-        pCelcius.innerHTML = `${fahrData} F`;
-      });
-
-      celsTemp.addEventListener('click', () => {
-        pCelcius.innerHTML = `${newData} ℃`;
-      });
-    }
-
-    if (weatherData.cod === 404) {
-      pCelcius.innerHTML = 'Sorry we could not find any city for your search';
-    }
-  } catch (error) {
-    danger.innerHTML = 'Errro alert';
+    });
+  } else {
+    danger.classList.remove('warning');
+    danger.classList.add('warning-block');
+    danger.innerHTML = 'Could not find city you are searching for';
+    setTimeout(() => {
+      danger.setAttribute('class', 'd-none');
+    }, 5000);
   }
 }
 

@@ -14,6 +14,7 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  background-repeat: repeat-x;
 }
 
 form {
@@ -59,7 +60,7 @@ a:hover {
 .nav_button.active {
   background: #fff;
   padding: 4px 0 5px 8px;
-  width: 40px;
+  width: 41px;
   height: 40px;
   margin: 0;
 }
@@ -76,4 +77,12 @@ a:hover {
   width: 80px;
   height: 40px;
   margin: 10px auto;
+}
+
+.warning {
+  display: none;
+}
+
+.warning-block {
+  display: block;
 }

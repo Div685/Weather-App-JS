@@ -1,6 +1,6 @@
 const variableData = () => {
   const descData = document.getElementById('weather-icons');
-  const danger = document.querySelector('.danger');
+  const danger = document.querySelector('#dangerr');
   const alert = document.getElementById('alert');
   const form = document.querySelector('#form-data');
 
