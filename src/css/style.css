@@ -4,34 +4,34 @@
 }
 
 body {
-    background: url(https://webstockreview.net/images/clipart-cloud-animated-gif-1.gif) no-repeat;
-    background-size: cover;
-    height: 100vh;
-    background-position: center;
-    background-color: #032238;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center
+  background: url(https://webstockreview.net/images/clipart-cloud-animated-gif-1.gif) no-repeat;
+  background-size: cover;
+  height: 100vh;
+  background-position: center;
+  background-color: #032238;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 form {
-    display: flex;
-    align-items: center;
-    justify-content: center
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .txt-search-city {
   padding: 10px;
-    border-radius: 10px;
-    width: 40%;
-    margin-right: -72px;
+  border-radius: 10px;
+  width: 40%;
+  margin-right: -72px;
 }
 
 .btn-Search {
   padding: 10px;
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .title-name {
@@ -44,12 +44,11 @@ a {
   outline: none;
 }
 
-a:hover{
+a:hover {
   text-decoration: none;
-  
 }
 
-.nav_button{
+.nav_button {
   border: none;
   border-style: none;
   outline: none;
@@ -59,7 +58,7 @@ a:hover{
 
 .nav_button.active {
   background: #fff;
-  padding: 4px 0px 5px 8px;
+  padding: 4px 0 5px 8px;
   width: 40px;
   height: 40px;
   margin: 0;

@@ -1,77 +1,75 @@
 import api from './api';
-import variable_data from './domElement';
-const dom_data = variable_data();
+import variableData from './domElement';
+
+const domData = variableData();
 const {
-  desc_data, danger, alert, form, input_form, btn_form,p_celcius, p_pressure,danger_div,
-  city_name, p_humidity, img_icon, weather_desc,  fahr_temp, cels_temp
-} = dom_data;
+  danger, form, inputForm, btnForm, pCelcius, pPressure,
+  cityName, pHumidity, imgIcon, weatherDesc, fahrTemp, celsTemp,
+} = domData;
 
-async function fetch_data() {
+
+const kelvinToCelius = (kelvin) => {
+  const cels = kelvin - 273.15;
+  return Math.round((cels + Number.EPSILON) * 100) / 100;
+};
+
+const celciusToFahrenheit = (kelvin) => {
+  const cels = kelvinToCelius(kelvin);
+  const fahrenheit = (cels * (9 / 5)) + 32;
+  return fahrenheit;
+};
+
+
+async function fetchData() {
   try {
-
-    const city = input_form.value;
-    const div_display = document.querySelector('.display-data');
+    const city = inputForm.value;
     const res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
       mode: 'cors',
     });
-  
-    const weather_data = await res.json();
-    
-    const main_temp_data = weather_data.main;
-  
-    if(weather_data.cod === 200) {
-  
-      weather_desc.innerHTML = `${weather_data.weather[0].main} - ${weather_data.weather[0].description}`;
-      img_icon.src = `https://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`;
-      const new_data = kelvin_to_celius(main_temp_data.temp);
-      p_celcius.innerHTML = `${new_data} ℃`;
-      p_humidity.innerHTML = `Humidity: ${main_temp_data.humidity}%`;
-      p_pressure.innerHTML = `Pressure: ${main_temp_data.pressure}`;
-      city_name.innerHTML = `${weather_data.name}`
-  
+
+    const weatherData = await res.json();
+
+    const mainTempData = weatherData.main;
+
+    if (weatherData.cod === 200) {
+      weatherDesc.innerHTML = `${weatherData.weather[0].main} - ${weatherData.weather[0].description}`;
+      imgIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+      const newData = kelvinToCelius(mainTempData.temp);
+      pCelcius.innerHTML = `${newData} ℃`;
+      pHumidity.innerHTML = `Humidity: ${mainTempData.humidity}%`;
+      pPressure.innerHTML = `Pressure: ${mainTempData.pressure}`;
+      cityName.innerHTML = `${weatherData.name}`;
+
       form.reset();
 
-      fahr_temp.addEventListener('click', () => {
-        const fahr_data = celcius_to_fahrenheit(main_temp_data.temp)
-        p_celcius.innerHTML =  `${fahr_data} F`
-      })
+      fahrTemp.addEventListener('click', () => {
+        const fahrData = celciusToFahrenheit(mainTempData.temp);
+        pCelcius.innerHTML = `${fahrData} F`;
+      });
 
-      cels_temp.addEventListener('click', ()=> {
-        p_celcius.innerHTML = `${new_data} ℃`;
-      })
-    } 
-  
-    if(weather_data.cod === 404) {
-      p_celcius.innerHTML = `Sorry we could not find any city for your search`;
+      celsTemp.addEventListener('click', () => {
+        pCelcius.innerHTML = `${newData} ℃`;
+      });
+    }
+
+    if (weatherData.cod === 404) {
+      pCelcius.innerHTML = 'Sorry we could not find any city for your search';
     }
   } catch (error) {
-    danger.innerHTML = `Errro alert`;
+    danger.innerHTML = 'Errro alert';
   }
-
-}
-
-
-const kelvin_to_celius = (kelvin) => {
-  const cels =  kelvin - 273.15
-  return Math.round((cels + Number.EPSILON) * 100) / 100
-}
-
-const celcius_to_fahrenheit = (kelvin) => {
-  const cels = kelvin_to_celius(kelvin);
-  const fahrenheit = (cels * (9/5)) + 32
-  return fahrenheit 
 }
 
 const setActiveButton = () => {
   const buttons = document.querySelectorAll('.nav_button');
 
   if (buttons) {
-    buttons.forEach( (el, key) => {
+    buttons.forEach((el, key) => {
       el.addEventListener('click', () => {
         el.classList.add('active');
 
-        buttons.forEach( (ell, els) => {
-          if(key !== els) {
+        buttons.forEach((ell, els) => {
+          if (key !== els) {
             ell.classList.remove('active');
           }
         });
@@ -81,13 +79,12 @@ const setActiveButton = () => {
 };
 
 const weatherInit = () => {
-  btn_form.addEventListener('click', (e) => {
-    fetch_data();
+  btnForm.addEventListener('click', (e) => {
+    fetchData();
     setActiveButton();
     e.preventDefault();
-  } 
-  );
-}
+  });
+};
 
 
 export default weatherInit;
