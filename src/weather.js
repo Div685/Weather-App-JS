@@ -1,28 +1,53 @@
 import api from './api';
-import { display_celcius } from './domElement';
-
-const input_form = document.querySelector('#search-city');
-const form = document.querySelector('form');
-const btn_form = document.querySelector('#btn-search'); 
-
-
-
+import variable_data from './domElement';
+const dom_data = variable_data();
+const {
+  desc_data, danger, alert, form, input_form, btn_form,p_celcius, p_pressure,danger_div,
+  city_name, p_humidity, img_icon, weather_desc,  fahr_temp, cels_temp
+} = dom_data;
 
 async function fetch_data() {
-  const city = input_form.value;
-  const div_display = document.querySelector('.display-data');
-  const res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
-  });
-  const f_data = await res.json();
-  console.log(f_data.main);
-  const main_temp_data = f_data.main;
-  display_celcius(kelvin_to_celius(f_data.main.temp));
-  const p = document.createElement('p');
-  p.innerHTML = `${kelvin_to_celius(f_data.main.temp)} °С
-    </br>
-    ${celcius_to_fahrenheit(f_data.main.temp)} °F
-    `;
-  div_display.appendChild(p);
+  try {
+
+    const city = input_form.value;
+    const div_display = document.querySelector('.display-data');
+    const res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
+      mode: 'cors',
+    });
+  
+    const weather_data = await res.json();
+    
+    const main_temp_data = weather_data.main;
+  
+    if(weather_data.cod === 200) {
+  
+      weather_desc.innerHTML = `${weather_data.weather[0].main} - ${weather_data.weather[0].description}`;
+      img_icon.src = `https://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`;
+      const new_data = kelvin_to_celius(main_temp_data.temp);
+      p_celcius.innerHTML = `${new_data} ℃`;
+      p_humidity.innerHTML = `Humidity: ${main_temp_data.humidity}%`;
+      p_pressure.innerHTML = `Pressure: ${main_temp_data.pressure}`;
+      city_name.innerHTML = `${weather_data.name}`
+  
+      form.reset();
+
+      fahr_temp.addEventListener('click', () => {
+        const fahr_data = celcius_to_fahrenheit(main_temp_data.temp)
+        p_celcius.innerHTML =  `${fahr_data} F`
+      })
+
+      cels_temp.addEventListener('click', ()=> {
+        p_celcius.innerHTML = `${new_data} ℃`;
+      })
+    } 
+  
+    if(weather_data.cod === 404) {
+      p_celcius.innerHTML = `Sorry we could not find any city for your search`;
+    }
+  } catch (error) {
+    danger.innerHTML = `Errro alert`;
+  }
+
 }
 
 
@@ -37,15 +62,32 @@ const celcius_to_fahrenheit = (kelvin) => {
   return fahrenheit 
 }
 
+const setActiveButton = () => {
+  const buttons = document.querySelectorAll('.nav_button');
+
+  if (buttons) {
+    buttons.forEach( (el, key) => {
+      el.addEventListener('click', () => {
+        el.classList.add('active');
+
+        buttons.forEach( (ell, els) => {
+          if(key !== els) {
+            ell.classList.remove('active');
+          }
+        });
+      });
+    });
+  }
+};
 
 const weatherInit = () => {
   btn_form.addEventListener('click', (e) => {
-    e.preventDefault();
     fetch_data();
+    setActiveButton();
+    e.preventDefault();
   } 
   );
 }
-
 
 
 export default weatherInit;
