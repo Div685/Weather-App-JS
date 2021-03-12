@@ -23,7 +23,7 @@ const celciusToFahrenheit = (kelvin) => {
 async function fetchData() {
   try {
     const city = inputForm.value;
-    const res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`, {
       mode: 'cors',
     });
 
