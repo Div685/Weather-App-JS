@@ -1,12 +1,8 @@
 # Weather App
 
-> Weather App using Javascript and openweathermap API. The main goal for this project was to build weather App using webpack, ES6 modules, Async, Promises, and API.
-  - I have used function to fetch data from API and display it on a webpage.
+> Weather App using Javascript and openweathermap API. The main goal for this project was to build weather App using webpack, ES6 modules, Async, Promises, and API. I have used function to fetch data from API and display it on a webpage.
 
-> Note: I have not pushed my API key. Kindly generate your own API key from [openweathermap websit](https://openweathermap.org/) and Use it. To generate API key you will have to sign up on the [openweathermap websit](https://openweathermap.org/).
-
-
-### You can access a Live Demo [HERE]()
+### You can access a Live Demo [HERE](https://gallant-knuth-fb2f5d.netlify.app/)
 
 ![Screenshot](./screencapture.png)
 
@@ -19,6 +15,11 @@
 - Bootstrap
 - openweathermap API
 
+## To Generate your own API key
+- Go to the [OpenWeatherMap websit](https://openweathermap.org/)
+- you will have sign up with your email and login to get the API Key.
+
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -27,10 +28,8 @@ To get a local copy up and running follow these simple steps.
 - [ ]  Navigate to the directory where you will like to install the repo by running `cd FOLDER-NAME` 
 - [ ] Clone this repository
  > `git clone https://github.com/Div685/Weather-App-JS.git`
-- [ ] create `api.js` file inside the `src` folder.
-- [ ] After define a variable called API and export it.
-    `const API = 'your API Key'`
-    `export default API`
+- [ ] run `npm install`
+- [ ] run `npm run watch` or `npm run build`
  - [ ] Now run `index.html` file in your favorite browser.
 
  
